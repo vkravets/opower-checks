@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE module PUBLIC
+"-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+"http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!-- ************************************************************************************
+- These checks constitute our separate standards for the code of our "shared libraries"
+- and are intended to be run in addition to the main checkstyle rules.
+- ************************************************************************************
+-->
+<module name="Checker">
+
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE_OFF\: ([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE_ON\: ([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+    <module name="TreeWalker">
+        <!-- ************************************************************************************
+           - These enforce that we do not use any Spring "magic" libraries.
+           - ************************************************************************************
+        -->
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalMagicImportSpringAnnotationStereotype"/>
+            <property name="format" value="^import org\.springframework\.stereotype\.(Repository|Service|Component);$"/>
+            <property name="message" value="Illegal import of magic Repository, Service, or Component"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalMagicAnnotationSpringStereotype"/>
+            <property name="format" value="^@(Repository|Service|Component)(\(.*\))?$"/>
+            <property name="message" value="Bean marked as Repository, Service, or Component"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalMagicImportSpringAnnotation"/>
+            <property name="format" value="^import org\.springframework\.beans\.factory\.annotation\.(Autowired|Value);$"/>
+            <property name="message" value="Illegal import of magic Autowired or Value"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalMagicImportResource"/>
+            <property name="format" value="^import javax\.annotation\.Resource;$"/>
+            <property name="message" value="Illegal import of magic Resource"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalMagicAnnotation"/>
+            <property name="format" value="^\s*@(Autowired|Value|Resource)(\(.*\))?$"/>
+            <property name="message" value="Bean property marked as Autowired, Value, or Resource"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+    </module>
+</module>
