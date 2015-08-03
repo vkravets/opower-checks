@@ -37,8 +37,8 @@
     </licenses>
 
     <properties>
-        <versionCheckstyle>6.8.1</versionCheckstyle>
-        <versionJunit>4.11</versionJunit>
+        <version.checkstyle>6.8.1</version.checkstyle>
+        <version.junit>4.11</version.junit>
         <maven.checkstyle.checks.opower_libs_checks>false</maven.checkstyle.checks.opower_libs_checks>
     </properties>
 
@@ -46,13 +46,13 @@
         <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>${versionCheckstyle}</version>
+            <version>${version.checkstyle}</version>
         </dependency>
         <!-- Dependencies for unit tests -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${versionJunit}</version>
+            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -72,7 +72,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>${versionCheckstyle}</version>
+                        <version>${version.checkstyle}</version>
                     </dependency>
                 </dependencies>
                 <executions>
