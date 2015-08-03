@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.beanutils.ConversionException;
-
 import com.puppycrawl.tools.checkstyle.ScopeUtils;
-import com.puppycrawl.tools.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
@@ -61,14 +58,14 @@ public class JavadocTagCheck extends Check {
      * Set the tag name.
      *
      * @param aTagName a <code>String</code> value
-     * @throws ConversionException unable to parse aTagName
+     * @throws IllegalArgumentException unable to parse aTagName
      */
-    public void setTagName(String aTagName) throws ConversionException {
+    public void setTagName(String aTagName) throws IllegalArgumentException {
         try {
             this.mTag = JavadocTagInfo.valueOf(aTagName.toUpperCase());
         }
         catch (final IllegalArgumentException e) {
-            throw new ConversionException("Unsupported tag name: " + aTagName, e);
+            throw new IllegalArgumentException("Unsupported tag name: " + aTagName, e);
         }
     }
 
@@ -76,16 +73,11 @@ public class JavadocTagCheck extends Check {
      * Set the tag pattern.
      *
      * @param aFormat a <code>String</code> value
-     * @throws ConversionException unable to parse aFormat
+     * @throws PatternSyntaxException unable to parse aFormat
      */
-    public void setFormat(String aFormat) throws ConversionException {
-        try {
-            this.mFormat = aFormat;
-            this.mFormatPattern = Utils.createPattern(aFormat);
-        }
-        catch (final PatternSyntaxException e) {
-            throw new ConversionException("Unable to parse: " + aFormat, e);
-        }
+    public void setFormat(String aFormat) throws PatternSyntaxException {
+        this.mFormat = aFormat;
+        this.mFormatPattern = Pattern.compile(aFormat);
     }
 
     @Override
@@ -132,7 +124,7 @@ public class JavadocTagCheck extends Check {
         }
 
         if (aAST.getType() == TokenTypes.PACKAGE_DEF) {
-            if (getFileContents().getFilename().endsWith("package-info.java")) {
+            if (getFileContents().getFileName().endsWith("package-info.java")) {
                 return true;
             }
             return false;

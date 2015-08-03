@@ -1,10 +1,12 @@
 package com.opower.checkstyle.checks.javadoc;
 
-import com.opower.checkstyle.checks.BaseCheckTestSupport;
+import java.util.regex.PatternSyntaxException;
+
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.JavadocTagInfo;
-import org.apache.commons.beanutils.ConversionException;
 import org.junit.Test;
+
+import com.opower.checkstyle.checks.BaseCheckTestSupport;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -29,7 +31,7 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
             fail("Expected exception, but nothing happened.");
         }
         catch (final Exception e) {
-            assertEquals(ConversionException.class, e.getClass());
+            assertEquals(IllegalArgumentException.class, e.getClass());
             assertEquals("Unsupported tag name: qwe", e.getMessage());
         }
     }
@@ -48,8 +50,7 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
             fail("Expected exception, but nothing happened.");
         }
         catch (final Exception e) {
-            assertEquals(ConversionException.class, e.getClass());
-            assertEquals("Failed to initialise regular expression ^(\\d", e.getMessage());
+            assertEquals(PatternSyntaxException.class, e.getClass());
         }
     }
 
