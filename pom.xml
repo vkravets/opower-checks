@@ -3,7 +3,7 @@
     <groupId>com.opower</groupId>
     <artifactId>opower-checks</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Opower Checkstyle Checks</name>
     <url>http://www.opower.com/</url>
 
@@ -24,7 +24,7 @@
     <scm>
         <connection>scm:git:git@github.com:opower/opower-checks.git</connection>
         <developerConnection>scm:git:git@github.com:opower/opower-checks.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>1.0.0</tag>
         <url>https://github.com/opower/opower-checks</url>
     </scm>
 
