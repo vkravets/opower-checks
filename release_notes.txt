@@ -1,2 +1,5 @@
+1.1.0
+ * Prohibit import of shaded packages (if the full package name includes ".shaded.")
+
 1.0.0
  * Initial commit for open sourcing opower-checks

@@ -110,6 +110,12 @@
             <property name="message" value="Old/Legacy import of Apache commons-lang v2 library. Use the commons-lang3 variant if possible, or wrap import in CHECKSTYLE_OFF exclusions if not possible."/>
             <property name="ignoreComments" value="true"/>
         </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="illegalImportShadedPackages"/>
+            <property name="format" value="^import .*\.shaded\..*;$"/>
+            <property name="message" value="Illegal import of shaded package. Use the non-shaded version instead."/>
+            <property name="ignoreComments" value="true"/>
+        </module>
 
 
         <!-- Checks for Size Violations.                    -->
