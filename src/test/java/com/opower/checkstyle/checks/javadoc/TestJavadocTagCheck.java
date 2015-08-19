@@ -3,7 +3,7 @@ package com.opower.checkstyle.checks.javadoc;
 import java.util.regex.PatternSyntaxException;
 
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.api.JavadocTagInfo;
+import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagInfo;
 import org.junit.Test;
 
 import com.opower.checkstyle.checks.BaseCheckTestSupport;
@@ -61,24 +61,15 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
     }
 
     @Test
-    public void testFileNotExist() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(JavadocTagCheck.class);
-        final String[] expected = {
-                "0: File not found!",
-        };
-        verify(checkConfig, getSrcPath("NotExistingfile.java"), expected);
-    }
-
-    @Test
     public void testMissingJavadocComment() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(JavadocTagCheck.class);
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "\\S");
         final String[] expected = {
-                "3: Missing a Javadoc comment",
-                "6: Missing a Javadoc comment",
-                "9: Missing a Javadoc comment",
-                "12: Missing a Javadoc comment",
+                "3: error: Missing a Javadoc comment",
+                "6: error: Missing a Javadoc comment",
+                "9: error: Missing a Javadoc comment",
+                "12: error: Missing a Javadoc comment",
         };
         verify(checkConfig, getSrcPath("withoutjavadoc/WithoutJavadoc.java"), expected);
     }
@@ -89,7 +80,7 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "\\S");
         final String[] expected = {
-                "1: Missing a Javadoc comment"
+                "1: error: Missing a Javadoc comment"
         };
         verify(checkConfig, getSrcPath("withoutjavadoc/package-info.java"), expected);
     }
@@ -128,10 +119,10 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "\\S");
         final String[] expected = {
-                "11: Type Javadoc comment is missing an @since tag.",
-                "18: Type Javadoc comment is missing an @since tag.",
-                "25: Type Javadoc comment is missing an @since tag.",
-                "32: Type Javadoc comment is missing an @since tag."
+                "11: error: Type Javadoc comment is missing an @since tag.",
+                "18: error: Type Javadoc comment is missing an @since tag.",
+                "25: error: Type Javadoc comment is missing an @since tag.",
+                "32: error: Type Javadoc comment is missing an @since tag."
         };
         verify(checkConfig, getSrcPath("withoutsince/WithoutSince.java"), expected);
     }
@@ -142,10 +133,10 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "ABC");
         final String[] expected = {
-                "12: Type Javadoc tag @since must match pattern 'ABC'.",
-                "20: Type Javadoc tag @since must match pattern 'ABC'.",
-                "28: Type Javadoc tag @since must match pattern 'ABC'.",
-                "36: Type Javadoc tag @since must match pattern 'ABC'."
+                "12: error: Type Javadoc tag @since must match pattern 'ABC'.",
+                "20: error: Type Javadoc tag @since must match pattern 'ABC'.",
+                "28: error: Type Javadoc tag @since must match pattern 'ABC'.",
+                "36: error: Type Javadoc tag @since must match pattern 'ABC'."
         };
         verify(checkConfig, getSrcPath("withsince/WithSince.java"), expected);
     }
@@ -166,7 +157,7 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "\\S");
         final String[] expected = {
-                "4: Type Javadoc comment is missing an @since tag."
+                "4: error: Type Javadoc comment is missing an @since tag."
         };
         verify(checkConfig, getSrcPath("withoutsince/package-info.java"), expected);
     }
@@ -177,7 +168,7 @@ public class TestJavadocTagCheck extends BaseCheckTestSupport {
         checkConfig.addAttribute("tagName", SINCE_TAG_NAME);
         checkConfig.addAttribute("format", "ABC");
         final String[] expected = {
-                "5: Type Javadoc tag @since must match pattern 'ABC'."
+                "5: error: Type Javadoc tag @since must match pattern 'ABC'."
         };
         verify(checkConfig, getSrcPath("withsince/package-info.java"), expected);
     }

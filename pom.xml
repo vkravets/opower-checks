@@ -37,7 +37,7 @@
     </licenses>
 
     <properties>
-        <version.checkstyle>6.8.1</version.checkstyle>
+        <version.checkstyle>6.11</version.checkstyle>
         <version.junit>4.11</version.junit>
         <maven.checkstyle.checks.opower_libs_checks>false</maven.checkstyle.checks.opower_libs_checks>
     </properties>
