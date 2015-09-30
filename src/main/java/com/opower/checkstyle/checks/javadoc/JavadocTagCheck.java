@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import com.puppycrawl.tools.checkstyle.ScopeUtils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
-import com.puppycrawl.tools.checkstyle.api.JavadocTagInfo;
 import com.puppycrawl.tools.checkstyle.api.Scope;
 import com.puppycrawl.tools.checkstyle.api.TextBlock;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTag;
+import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTagInfo;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTags;
-import com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocUtils;
+import com.puppycrawl.tools.checkstyle.utils.JavadocUtils;
+import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
 
 /**
  * Checks the tags in Javadoc.
@@ -124,14 +124,11 @@ public class JavadocTagCheck extends Check {
         }
 
         if (aAST.getType() == TokenTypes.PACKAGE_DEF) {
-            if (getFileContents().getFileName().endsWith("package-info.java")) {
-                return true;
-            }
-            return false;
+            return getFileContents().getFileName().endsWith("package-info.java");
         }
         final DetailAST mods = aAST.findFirstToken(TokenTypes.MODIFIERS);
         final Scope declaredScope = ScopeUtils.getScopeFromMods(mods);
-        final Scope scope = ScopeUtils.inInterfaceOrAnnotationBlock(aAST) ? Scope.PUBLIC : declaredScope;
+        final Scope scope = ScopeUtils.isInInterfaceOrAnnotationBlock(aAST) ? Scope.PUBLIC : declaredScope;
         final Scope surroundingScope = ScopeUtils.getSurroundingScope(aAST);
         return scope.isIn(this.mScope) && ((surroundingScope == null) || surroundingScope.isIn(this.mScope));
     }
@@ -166,7 +163,7 @@ public class JavadocTagCheck extends Check {
             final JavadocTag tag = aTags.get(i);
             if (tag.getTagName().equals(aTag)) {
                 tagCount++;
-                if (!aFormatPattern.matcher(tag.getArg1()).find()) {
+                if (!aFormatPattern.matcher(tag.getFirstArg()).find()) {
                     log(aLineNo, "type.tagFormat", "@" + aTag, aFormat);
                 }
             }
