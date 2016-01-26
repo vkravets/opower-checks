@@ -15,7 +15,7 @@ To run checkstyle add the following plugin to your Maven POM file's `plugins` se
     <dependencies>
         <dependency>
             <groupId>com.opower</groupId>
-            <artifactId>checkstyle</artifactId>
+            <artifactId>opower-checks</artifactId>
             <version>${version.opower.checkstyle}</version>
         </dependency>
     </dependencies>
@@ -54,7 +54,7 @@ To run checkstyle add the following plugin to your Maven POM file's `plugins` se
 ```
 
 The stanza above includes 2 checkstyle executions. The first, `checkstyle`, runs `opower_checks.xml`.
-The second, `checkstyle-libs` runs `opower_libs_checks.xml` and can be disabled by setting the 
+The second, `checkstyle-libs` runs `opower_libs_checks.xml` and can be disabled by setting the
 `maven.checkstyle.checks.opower_libs_checks` property to `true`.
 
 Contributing
