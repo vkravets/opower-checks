@@ -1,6 +1,6 @@
 1.1.0
  * Prohibit import of shaded packages (if the full package name includes ".shaded.")
- * Upgrade to Checkstyle 6.11
+ * Upgrade to Checkstyle 7.0
 
 1.0.0
  * Initial commit for open sourcing opower-checks
